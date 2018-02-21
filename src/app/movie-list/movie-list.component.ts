@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FilmService } from '../film.service';
 
+import { Film } from "../film";
+
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
@@ -12,16 +14,14 @@ export class MovieListComponent implements OnInit {
 
 
   ngOnInit() {
-    //this.films = this.filmService.getFilms();
     this.loadFilms();
   }
 
-  films: any[];
+  films: Film[];
 
   private loadFilms() {
-    this.filmService.getData()
-      .subscribe(
-        films => this.films = films.results ? films.results : [], //Bind to view
+    this.filmService.getFilms().subscribe(
+        films => this.films = films, //Bind to view
         err => console.log(err) // Log errors if any
       );
   }

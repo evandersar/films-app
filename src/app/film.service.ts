@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Response } from "@angular/http";
 
 import { Observable } from 'rxjs/Rx';
+
+import { Film } from "./film";
 
 @Injectable()
 export class FilmService {
@@ -10,36 +13,47 @@ export class FilmService {
 
   filmsUrl: string = 'https://swapi.co/api/films/';
 
-  public getData(): Observable<{}> {
-    let filmsObj = this.http.get(this.filmsUrl)
-      .map(data => data)
-      .catch(err => err);
-    return filmsObj;
+  public getFilms(): Observable<Film[]> {
+    let films = this.http.get(this.filmsUrl)
+      .map(this.extractFilms) // преобразовывает ответ в массив экземпляров Film.
+      .catch(this.handleError);
+    return films;
   }
 
-  getFilms(): any[] {
-    return [
-      { "title": "Caught", "year": 1900, "director": null, "cast": null, "genre": null, "notes": null },
-      { "title": "Clowns Spinning Hats", "year": 1900, "director": null, "cast": null, "genre": null, "notes": null },
-      { "title": "Capture of Boer Battery by British", "year": 1900, "director": "James H. White", "cast": null, "genre": "Short documentary", "notes": null },
-      { "title": "The Enchanted Drawing", "year": 1900, "director": "J. Stuart Blackton", "cast": null, "genre": null, "notes": null },
-      {
-        "title": "Avengers: Age of Ultron",
-        "year": 2015,
-        "director": "Joss Whedon",
-        "cast": "Robert Downey, Jr., Chris Evans, Chris Hemsworth, Mark Ruffalo",
-        "genre": "Action",
-        "notes": "Walt Disney, Sequel to The Avengers (2012), Based on the comics of the same name by Stan Lee and Jack Kirby"
-      },
-      {
-        "title": "Avengers, The Avengers",
-        "year": 2012,
-        "director": "Joss Whedon",
-        "cast": "Robert Downey, Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson, Jeremy Renner, Tom Hiddleston, Clark Gregg, Cobie Smulders, Stellan Skarsgård, Samuel L. Jackson",
-        "genre": "Superhero",
-        "notes": "Walt Disney Pictures, Marvel Studios, Based on the comic book of the same name by Stan Lee and Jack Kirby"
-      }
-    ];
+  private extractFilms(dataObj) {
+    let res = dataObj.results;
+    let films: Film[] = [];
+    for (let i = 0; i < res.length; i++) {
+      
+      /* let film: Film = {
+        title: res[i].title,
+        episode_id: res[i].episode_id,
+        director: res[i].director,
+        producer: res[i].producer,
+        release_date: res[i].release_date,
+      } */
+
+      let film = new Film(res[i].title, res[i].episode_id, res[i].director, res[i].producer, res[i].release_date);
+
+      films.push(film);
+    }
+    return films;
+  }
+
+
+  private handleError(error: any, cought: Observable<any>): any {
+    let message = "";
+
+    if (error instanceof Response) {
+      let errorData = error.json().error || JSON.stringify(error.json());
+      message = `${error.status} - ${error.statusText || ''} ${errorData}`
+    } else {
+      message = error.message ? error.message : error.toString();
+    }
+
+    console.error(message);
+
+    return Observable.throw(message);
   }
 
 }
