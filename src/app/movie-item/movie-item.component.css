@@ -2,3 +2,6 @@ span{
     display: inline-block;
     height: 30px;
 }
+.card-img-top{
+    cursor: pointer;
+}

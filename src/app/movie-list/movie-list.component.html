@@ -1,6 +1,6 @@
-<div class="album py-5 bg-light">
+<h3 *ngIf="!films">Movies are loading...</h3>
+<div *ngIf="films" class="album py-5 bg-light">
   <div class="container">
-
     <div class="row">
       <div *ngFor="let film of films" class="col-md-4">
         <app-movie-item [item]="film"></app-movie-item>

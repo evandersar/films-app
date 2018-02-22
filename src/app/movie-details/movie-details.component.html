@@ -1,2 +1,10 @@
-<h2>Movie detail</h2>
-<p>{{film?.title}}</p><!-- ? or *ngIf="film" -->
+<h3 *ngIf="!film">Movie is loading...</h3>
+<div *ngIf="film" class="detail-cont">
+    <h2>Movie details</h2>
+    <hr>
+    <!-- ? or *ngIf="film" -->
+    <p>Title: <strong>{{film?.title}}</strong></p>
+    <p>Director: <strong>{{film?.director}}</strong></p>
+    <p>Producer: <strong>{{film?.producer}}</strong></p>
+    <p>Release date: <strong>{{film?.release_date}}</strong></p>
+</div>

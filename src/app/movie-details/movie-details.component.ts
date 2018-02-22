@@ -13,15 +13,12 @@ export class MovieDetailsComponent implements OnInit {
   film: Film;
 
   constructor(private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private service: FilmService) { }
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    let id = +this.activatedRoute.snapshot.params["id"];
-    this.service.getFilm(id).subscribe(
-      res => this.film = res, //Bind to view
-      err => console.log(err) // Log errors if any
-    );
+    this.activatedRoute.data.forEach((data: { film: Film }) => {
+      this.film = data.film;
+    });
   }
 
 }

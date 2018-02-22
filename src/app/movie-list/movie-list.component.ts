@@ -9,15 +9,14 @@ import { Film } from "../film";
   styleUrls: ['./movie-list.component.css']
 })
 export class MovieListComponent implements OnInit {
+  
+  films: Film[];
 
   constructor(private filmService: FilmService) { }
-
 
   ngOnInit() {
     this.loadFilms();
   }
-
-  films: Film[];
 
   private loadFilms() {
     this.filmService.getFilms().subscribe(

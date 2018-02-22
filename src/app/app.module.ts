@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from "@angular/router";
 
@@ -10,6 +10,7 @@ import { MovieListComponent } from './movie-list/movie-list.component';
 import { FilmService } from './film.service';
 import { routes } from "./app.routes";
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { MovieDetailsService } from './movie-details.service';
 
 
 @NgModule({
@@ -25,7 +26,10 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [FilmService],
+  providers: [
+    FilmService, 
+    MovieDetailsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
