@@ -20,6 +20,13 @@ export class FilmService {
     return films;
   }
 
+  public getFilm(id): Observable<Film>{
+    let film = this.http.get(`${this.filmsUrl}${id}/`)
+      .map(this.extractFilm) // преобразовывает ответ в Film.
+      .catch(this.handleError);
+    return film;
+  }
+
   private extractFilms(dataObj) {
     let res = dataObj.results;
     let films: Film[] = [];
@@ -38,6 +45,10 @@ export class FilmService {
       films.push(film);
     }
     return films;
+  }
+
+  private extractFilm(res){
+    return new Film(res.title, res.episode_id, res.director, res.producer, res.release_date);
   }
 
 
