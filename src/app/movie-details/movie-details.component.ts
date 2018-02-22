@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import { FilmService } from '../film.service';
+import { ActivatedRoute } from "@angular/router";
 
 import { Film } from "../film";
 
@@ -12,8 +11,7 @@ import { Film } from "../film";
 export class MovieDetailsComponent implements OnInit {
   film: Film;
 
-  constructor(private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.data.forEach((data: { film: Film }) => {
