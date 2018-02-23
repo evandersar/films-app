@@ -1,4 +1,4 @@
-<h3 *ngIf="!film">Movie is loading...</h3>
+<!-- <h3 *ngIf="!film">Movie is loading...</h3> --> <!-- For variant without resolve -->
 <div *ngIf="film" class="detail-cont">
     <h2>Movie details</h2>
     <hr>
@@ -7,4 +7,14 @@
     <p>Director: <strong>{{film?.director}}</strong></p>
     <p>Producer: <strong>{{film?.producer}}</strong></p>
     <p>Release date: <strong>{{film?.release_date}}</strong></p>
+    <hr>
+    <p>Title: <strong>{{storeFilm?.title}}</strong></p>
+    <p>Director: <strong>{{storeFilm?.director}}</strong></p>
+    <p>Producer: <strong>{{storeFilm?.producer}}</strong></p>
+    <p>Release date: <strong>{{storeFilm?.release_date}}</strong></p>
+    <!-- <hr>
+    <p>Title: <strong>{{film$ | async}}</strong></p>
+    <p>Director: <strong>{{film$ | async}}</strong></p>
+    <p>Producer: <strong>{{film$ | async}}</strong></p>
+    <p>Release date: <strong>{{film$ | async}}</strong></p> -->
 </div>
